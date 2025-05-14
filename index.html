@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mass Mail Dispatcher</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<header>
+  <h1>Mass Mail Dispatcher</h1>
+</header>
+<main>
+  <section class="upload-section">
+    <label for="csvFile" class="file-label" aria-label="Upload CSV file containing emails">
+      📂 Upload CSV File
+    </label>
+    <input type="file" id="csvFile" accept=".csv,text/csv" aria-describedby="upload-desc" />
+
+    <p id="upload-desc" class="small-text">
+      Upload a CSV file containing email addresses. The app will parse, validate, and deduplicate them.
+    </p>
+    <div id="loadingIndicator" class="loading-indicator" aria-live="polite" role="status" hidden>
+      Processing file... ⏳
+    </div>
+  </section>
+
+  <section class="compose-section">
+    <h2>Email Compose</h2>
+    <label for="emailSubject">Subject:</label>
+    <input type="text" id="emailSubject" placeholder="Enter email subject..." autocomplete="off" />
+    <label for="emailBody">Message:</label>
+    <textarea id="emailBody" rows="5" placeholder="Enter email message..."></textarea>
+  </section>
+
+  <section class="lists-section">
+    <div class="list-container">
+      <h2>Valid Emails (<span id="validCount">0</span>)</h2>
+      <input type="search" id="validFilter" placeholder="Filter valid emails" aria-label="Filter valid emails" />
+      <ul class="email-list valid-list" id="validEmails" tabindex="0" aria-live="polite" aria-atomic="true" aria-relevant="additions removals">
+        <!-- Valid emails here -->
+      </ul>
+      <div class="buttons-row">
+        <button id="btnCopyValid" title="Copy valid emails to clipboard">📋 Copy Valid</button>
+        <button id="btnDownloadValid" title="Download valid emails as CSV">⬇️ Download Valid CSV</button>
+      </div>
+    </div>
+
+    <div class="list-container">
+      <h2>Invalid Emails (<span id="invalidCount">0</span>)</h2>
+      <input type="search" id="invalidFilter" placeholder="Filter invalid emails" aria-label="Filter invalid emails" />
+      <ul class="email-list invalid-list" id="invalidEmails" tabindex="0" aria-live="polite" aria-atomic="true" aria-relevant="additions removals">
+        <!-- Invalid emails here -->
+      </ul>
+      <div class="buttons-row">
+        <button id="btnDownloadInvalid" title="Download invalid emails as CSV">⬇️ Download Invalid CSV</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="actions-section">
+    <button id="btnMockSend" disabled>🚀 Mock Send Emails</button>
+    <button id="btnClearAll">🗑️ Clear All</button>
+  </section>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
